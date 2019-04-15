@@ -1,5 +1,6 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
+const colors = document.getElementsByClassName("jsColor");
 
 canvas.width = 500;
 canvas.height = 500; //css 사이즈 말고 따로 지정해줘야함 pixel modifier
@@ -45,9 +46,20 @@ function startPainting() {
 // painting = false;
 // }
 
+function handleColorClick(event) {
+  const color = event.target.style.backgroundColor;
+  // console.log(color);
+  ctx.strokeStyle = color;
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
 }
+
+// console.log(Array.from(colors)); //array로 만들어줌
+Array.from(colors).forEach(colors =>
+  colors.addEventListener("click", handleColorClick)
+);
