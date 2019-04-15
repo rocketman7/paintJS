@@ -47,9 +47,9 @@ function startPainting() {
 //   stopPainting();
 // }
 
-// function onMouseLeave(event) {
-// painting = false;
-// }
+function onMouseLeave(event) {
+  painting = false;
+}
 
 function handleColorClick(event) {
   const color = event.target.style.backgroundColor;
