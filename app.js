@@ -47,9 +47,9 @@ function startPainting() {
 //   stopPainting();
 // }
 
-function onMouseLeave(event) {
-  painting = false;
-}
+// function onMouseLeave(event) {
+// painting = false;
+// }
 
 function handleColorClick(event) {
   const color = event.target.style.backgroundColor;
@@ -103,3 +103,8 @@ if (range) {
 if (mode) {
   mode.addEventListener("click", handleModeClick);
 }
+
+// console.log(Array.from(colors)); //array로 만들어줌
+Array.from(colors).forEach(color =>
+  color.addEventListener("click", handleColorClick)
+); //forEach안에 color는 아무렇게나 명명해도 됨. array안에 각 요소를 차례로 선택하기 위한 것.
