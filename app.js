@@ -3,11 +3,14 @@ const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
+const save = document.getElementById("jsSave");
 
 const DEFAULT_COLOR = "#2c2c2c";
-canvas.width = 500;
-canvas.height = 500; //css 사이즈 말고 따로 지정해줘야함 pixel modifier
+canvas.width = 700;
+canvas.height = 700; //css 사이즈 말고 따로 지정해줘야함 pixel modifier
 
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, 700, 700);
 ctx.strokeStyle = DEFAULT_COLOR;
 ctx.fillStyle = DEFAULT_COLOR;
 ctx.fillStyle = ctx.lineWidth = 2.5;
@@ -81,12 +84,27 @@ function handleCanvasClick() {
   }
 }
 
+function handleCM(event) {
+  event.preventDefault();
+}
+
+function handleSave() {
+  const image = canvas.toDataURL("image/jpeg");
+  // console.log(image);
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "paintJS.png";
+  // console.log(link);
+  link.click();
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvasClick);
+  canvas.addEventListener("contextmenu", handleCM);
 }
 
 // console.log(Array.from(colors)); //array로 만들어줌
@@ -104,6 +122,9 @@ if (mode) {
   mode.addEventListener("click", handleModeClick);
 }
 
+if (save) {
+  save.addEventListener("click", handleSave);
+}
 // console.log(Array.from(colors)); //array로 만들어줌
 Array.from(colors).forEach(color =>
   color.addEventListener("click", handleColorClick)
