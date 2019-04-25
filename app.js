@@ -9,11 +9,11 @@ const DEFAULT_COLOR = "#2c2c2c";
 canvas.width = 700;
 canvas.height = 700; //css 사이즈 말고 따로 지정해줘야함 pixel modifier
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, 700, 700);
+// ctx.fillStyle = "white";
+// ctx.fillRect(0, 0, 700, 700);
 ctx.strokeStyle = DEFAULT_COLOR;
-ctx.fillStyle = DEFAULT_COLOR;
-ctx.fillStyle = ctx.lineWidth = 2.5;
+// ctx.fillStyle = DEFAULT_COLOR;
+ctx.lineWidth = 2.5;
 
 let painting = false;
 let filling = false;
@@ -71,12 +71,17 @@ function handleModeClick(event) {
   if (filling) {
     filling = false;
     mode.innerText = "Canvas Color";
+    ctx.globalCompositeOperation = "source-over";
   } else {
     filling = true;
     mode.innerText = "Paint";
+    ctx.globalCompositeOperation = "destination-over";
+    // canvas.addEventListener("mousemove", doNothing);
   }
   console.log(filling);
 }
+
+// function doNothing() {}
 
 function handleCanvasClick() {
   if (filling) {
@@ -99,12 +104,14 @@ function handleSave() {
 }
 
 if (canvas) {
-  canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvasClick);
   canvas.addEventListener("contextmenu", handleCM);
+  if (!filling) {
+    canvas.addEventListener("mousemove", onMouseMove);
+  }
 }
 
 // console.log(Array.from(colors)); //array로 만들어줌
